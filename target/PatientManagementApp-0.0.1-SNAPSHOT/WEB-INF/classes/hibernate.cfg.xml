@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "https://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- Connexion à la base de données -->
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/gestion_medicale?useSSL=false&amp;serverTimezone=UTC</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password"></property>
+
+        <!-- Dialecte MySQL -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+
+        <!-- Affichage SQL dans la console -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- Créer ou mettre à jour les tables -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Entités annotées -->
+        <mapping class="model.Utilisateur"/>
+        <mapping class="model.Patient"/>
+        <mapping class="model.Medecin"/>
+        <mapping class="model.Specialite"/>
+        <mapping class="model.RendezVous"/>
+        <mapping class="model.DossierMedical"/>
+        <mapping class="model.DocumentMedical"/>
+    </session-factory>
+</hibernate-configuration>
