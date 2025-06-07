@@ -3,20 +3,20 @@ package controller;
 import java.io.IOException;
 import java.util.Date;
 
-import dao.MedecinDAO;
+import dao.DoctorDAO;
 import dao.PatientDAO;
-import dao.SpecialiteDAO;
-import dao.UtilisateurDAO;
+import dao.SpecialtyDAO;
+import dao.UserDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Medecin;
+import model.Doctor;
 import model.Patient;
-import model.Specialite;
-import model.Utilisateur;
+import model.Specialty;
+import model.User;
 
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/register"})
 @SuppressWarnings("serial")
@@ -24,7 +24,7 @@ public class RegisterServlet extends HttpServlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Pour afficher la liste des spécialités dans le formulaire d'inscription des médecins
-        SpecialiteDAO specialiteDAO = new SpecialiteDAO();
+        SpecialtyDAO specialiteDAO = new SpecialtyDAO();
         request.setAttribute("specialites", specialiteDAO.findAll());
         
         // Forward to the registration form
@@ -59,18 +59,18 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
         
-        UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
-        
+        UserDAO utilisateurDAO = new UserDAO();
+
         // Vérifier si l'email existe déjà
         if (utilisateurDAO.findByEmail(email) != null) {
             request.setAttribute("error", "Cet email est déjà utilisé.");
             request.getRequestDispatcher("views/register.jsp").forward(request, response);
             return;
         }
-        
+
         try {
             // Création de l'utilisateur
-            Utilisateur utilisateur = new Utilisateur();
+            User utilisateur = new User();
             utilisateur.setNom(nom);
             utilisateur.setPrenom(prenom);
             utilisateur.setEmail(email);
@@ -94,12 +94,12 @@ public class RegisterServlet extends HttpServlet {
                     return;
                 }
                 
-                Medecin medecin = new Medecin();
+                Doctor medecin = new Doctor();
                 medecin.setUtilisateur(utilisateur);
-                
+
                 // Récupération de la spécialité
-                SpecialiteDAO specialiteDAO = new SpecialiteDAO();
-                Specialite specialite = specialiteDAO.findById(Integer.parseInt(specialiteId));
+                SpecialtyDAO specialiteDAO = new SpecialtyDAO();
+                Specialty specialite = specialiteDAO.findById(Integer.parseInt(specialiteId));
                 if (specialite == null) {
                     request.setAttribute("error", "Spécialité invalide.");
                     request.getRequestDispatcher("/views/register.jsp").forward(request, response);
@@ -113,7 +113,7 @@ public class RegisterServlet extends HttpServlet {
                     medecin.setAnneesExperience(Integer.parseInt(anneesExperience));
                 }
                 
-                MedecinDAO medecinDAO = new MedecinDAO();
+                DoctorDAO medecinDAO = new DoctorDAO();
                 medecinDAO.save(medecin);
             } else if ("patient".equals(role)) {
                 Patient patient = new Patient();

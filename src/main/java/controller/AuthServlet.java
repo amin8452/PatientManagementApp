@@ -2,14 +2,14 @@ package controller;
 
 import java.io.IOException;
 
-import dao.UtilisateurDAO;
+import dao.UserDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Utilisateur;
+import model.User;
 
 @WebServlet("/login")
 public class AuthServlet extends HttpServlet {
@@ -17,8 +17,8 @@ public class AuthServlet extends HttpServlet {
         String email = request.getParameter("email");
         String motDePasse = request.getParameter("motDePasse");
 
-        UtilisateurDAO dao = new UtilisateurDAO();
-        Utilisateur user = dao.findByEmailAndPassword(email, motDePasse);
+        UserDAO dao = new UserDAO();
+        User user = dao.findByEmailAndPassword(email, motDePasse);
 
         if (user != null) {
             HttpSession session = request.getSession();

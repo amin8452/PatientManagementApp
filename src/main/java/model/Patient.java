@@ -1,6 +1,16 @@
 package model;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "patient")
@@ -11,7 +21,7 @@ public class Patient {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "utilisateur_id", nullable = false)
-    private Utilisateur utilisateur;
+    private User utilisateur;
 
     @Column(name = "numero_securite_sociale", unique = true)
     private String numeroSecuriteSociale;
@@ -30,8 +40,8 @@ public class Patient {
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public Utilisateur getUtilisateur() { return utilisateur; }
-    public void setUtilisateur(Utilisateur utilisateur) { this.utilisateur = utilisateur; }
+    public User getUtilisateur() { return utilisateur; }
+    public void setUtilisateur(User utilisateur) { this.utilisateur = utilisateur; }
 
     public String getNumeroSecuriteSociale() { return numeroSecuriteSociale; }
     public void setNumeroSecuriteSociale(String numeroSecuriteSociale) { this.numeroSecuriteSociale = numeroSecuriteSociale; }

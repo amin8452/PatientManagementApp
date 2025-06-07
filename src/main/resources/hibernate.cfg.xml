@@ -19,12 +19,12 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!-- Entités annotées -->
-        <mapping class="model.Utilisateur"/>
+        <mapping class="model.User"/>
         <mapping class="model.Patient"/>
-        <mapping class="model.Medecin"/>
-        <mapping class="model.Specialite"/>
-        <mapping class="model.RendezVous"/>
-        <mapping class="model.DossierMedical"/>
-        <mapping class="model.DocumentMedical"/>
+        <mapping class="model.Doctor"/>
+        <mapping class="model.Specialty"/>
+        <mapping class="model.Appointment"/>
+        <mapping class="model.MedicalRecord"/>
+        <mapping class="model.MedicalDocument"/>
     </session-factory>
 </hibernate-configuration>
